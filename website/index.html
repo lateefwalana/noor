@@ -45,7 +45,7 @@ img{max-width:100%;display:block}
 a{color:inherit}
 
 /* ---------- reveal on scroll ---------- */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -99,7 +99,9 @@ h2{
 }
 .hero::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(200deg,rgba(34,35,31,.14) 30%,rgba(34,35,31,.84) 88%);
+  background:
+    linear-gradient(180deg,rgba(217,142,50,.16) 0%,rgba(217,142,50,0) 42%),
+    linear-gradient(200deg,rgba(34,35,31,.14) 30%,rgba(34,35,31,.84) 88%);
 }
 .hero-inner{position:relative;z-index:2;width:100%;padding:120px 0 64px}
 .urdu-eyebrow{
@@ -124,7 +126,7 @@ h2{
 .btn-ghost:hover{background:#fff;color:var(--ink)}
 .hero-stamp{
   position:absolute;top:86px;right:24px;z-index:2;
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
   background:rgba(34,35,31,.7);color:#DDD9CF;padding:7px 13px;border-radius:4px;
 }
 .hero-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#fff}
@@ -164,7 +166,7 @@ h2{
 .figure img{border-radius:6px}
 .stamp{
   position:absolute;left:14px;bottom:14px;
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
   background:rgba(34,35,31,.82);color:#DDD9CF;padding:6px 12px;border-radius:4px;
 }
 .distance{
@@ -187,10 +189,11 @@ h2{
 .strip{
   display:flex;gap:20px;overflow-x:auto;padding:10px 4px 26px;
   scroll-snap-type:x mandatory;
+  scrollbar-width:thin;scrollbar-color:var(--amber) rgba(255,255,255,.08);
 }
-.strip::-webkit-scrollbar{height:8px}
-.strip::-webkit-scrollbar-thumb{background:var(--concrete);border-radius:99px}
-.strip::-webkit-scrollbar-track{background:transparent}
+.strip::-webkit-scrollbar{height:5px}
+.strip::-webkit-scrollbar-thumb{background:var(--amber);border-radius:99px}
+.strip::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:99px}
 .cell{
   flex:0 0 320px;scroll-snap-align:start;background:#2E2F2A;
   padding:10px 10px 8px;border-radius:5px;position:relative;
@@ -199,12 +202,12 @@ h2{
 .cell img{cursor:zoom-in;transition:transform .45s ease,filter .45s ease}
 .cell:hover img{transform:scale(1.018);filter:saturate(1.04) contrast(1.03)}
 .cell figcaption{
-  font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
   color:#B9B5AA;padding:10px 2px 4px;display:flex;gap:12px;align-items:baseline;
 }
 .cell figcaption .no{color:var(--amber);flex:0 0 auto}
 .cell figcaption .t{color:#DDD9CF}
-.cell figcaption small{display:block;text-transform:none;letter-spacing:.02em;color:#8E8B83;font-size:.62rem;margin-top:2px}
+.cell figcaption small{display:block;text-transform:none;letter-spacing:.02em;color:#8E8B83;font-size:.66rem;margin-top:2px}
 .journey-note{
   margin-top:18px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
   color:#8E8B83;max-width:52ch;line-height:1.8;
@@ -239,8 +242,8 @@ h2{
 .unit-name b{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.01em}
 .unit-name p{font-size:.88rem;color:#4c4b44;max-width:46ch;margin-top:2px}
 .unit-size{font-family:var(--mono);font-size:1rem;color:var(--palm);white-space:nowrap}
-.unit-size small{display:block;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--concrete);text-align:right}
-.unit-thumb img{border-radius:4px;aspect-ratio:4/3;object-fit:cover}
+.unit-size small{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--concrete);text-align:right}
+.unit-thumb img{border-radius:4px;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);filter:saturate(.92) contrast(1.04)}
 .price-line{
   display:flex;flex-wrap:wrap;gap:10px 34px;align-items:baseline;
   margin-top:30px;padding:20px 0 0;border-top:1px solid var(--line);
@@ -258,7 +261,7 @@ h2{
 }
 .feat:nth-last-child(-n+3){grid-column:span 4}
 .feat b{font-weight:600;font-size:.95rem;display:block}
-.feat span{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concrete)}
+.feat span{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concrete)}
 
 /* ---------- views full bleed ---------- */
 .views{
@@ -314,12 +317,12 @@ h2{
 .cell-video{width:100%}
 .video-shell{position:relative;overflow:hidden;border-radius:2px;background:#111}
 .video-shell video{display:block;aspect-ratio:16/9;object-fit:contain;background:#0b0e0c;filter:none}
-.video-tag{position:absolute;left:10px;top:10px;pointer-events:none;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(16,61,49,.82);padding:6px 9px;border-radius:99px;backdrop-filter:blur(8px)}
+.video-tag{position:absolute;left:10px;top:10px;pointer-events:none;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(16,61,49,.82);padding:6px 9px;border-radius:99px;backdrop-filter:blur(8px)}
 .photo-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-flow:dense;gap:14px}
 .photo-grid .cell{grid-column:span 4}
-.photo-grid .cell:nth-child(1),.photo-grid .cell:nth-child(4){grid-column:span 6}
+.photo-grid .cell:nth-child(1),.photo-grid .cell:nth-child(2),.photo-grid .cell:nth-child(6),.photo-grid .cell:nth-child(7){grid-column:span 6}
 .photo-grid .cell img{aspect-ratio:4/3;height:100%;max-height:330px}
-.photo-grid .cell:nth-child(1) img,.photo-grid .cell:nth-child(4) img{aspect-ratio:16/10}
+.photo-grid .cell:nth-child(1) img,.photo-grid .cell:nth-child(2) img,.photo-grid .cell:nth-child(6) img,.photo-grid .cell:nth-child(7) img{aspect-ratio:16/10}
 
 /* ---------- lightbox ---------- */
 .lightbox{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:30px;background:rgba(11,18,15,.94);backdrop-filter:blur(16px)}
@@ -353,7 +356,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 60px;color:var(--concrete
 footer .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px}
 footer .fbrand{font-family:var(--display);font-weight:800;color:var(--ink);font-size:1.1rem;margin-bottom:8px}
 footer p{font-size:.8rem;max-width:54ch;line-height:1.7}
-footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
+footer .fine{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;line-height:1.9}
+footer .fine + .fine{margin-top:14px}
 
 /* ---------- responsive ---------- */
 @media (max-width: 900px){
@@ -368,21 +372,27 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
   .unit-thumb{display:none}
   footer .wrap{grid-template-columns:1fr}
   .render-card{transform:none;max-width:100%}
-  .nav{display:none}
+  header{flex-wrap:wrap;row-gap:8px;padding:12px 18px}
+  .nav{order:3;flex-basis:100%;margin:0;gap:22px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{white-space:nowrap;padding:2px 0}
+  .hero-stamp{top:auto;bottom:14px;left:auto;right:14px;max-width:calc(100% - 28px);font-size:.64rem;text-align:right}
   .video-grid{grid-template-columns:1fr}
-  .photo-grid .cell,.photo-grid .cell:nth-child(1),.photo-grid .cell:nth-child(4){grid-column:span 6}
+  .photo-grid .cell:nth-child(n){grid-column:span 6}
 }
 @media (max-width: 640px){
   .brand span{display:none}
   .hero{min-height:78vh}
+  .hero-inner{padding:230px 0 56px}
   .views blockquote{font-size:1.4rem}
   .facts .wrap{grid-template-columns:1fr 1fr}
   .gallery-head{display:block;margin-bottom:26px}
   .photo-grid{gap:10px}
-  .photo-grid .cell,.photo-grid .cell:nth-child(1),.photo-grid .cell:nth-child(4){grid-column:1/-1}
+  .photo-grid .cell:nth-child(n){grid-column:1/-1}
   .gallery .cell{padding:7px}
 }
 </style>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 
@@ -429,8 +439,8 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
 <!-- ================= TICKER ================= -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>From PKR 8,500 per sq ft</span><span>50% down payment</span><span>9–12 month payment plan</span><span>Handover planned within one year</span><span>1 MW PMT installed</span><span>Premium roof work complete</span><span>Facing Bahria Town Head Office</span>
-    <span>From PKR 8,500 per sq ft</span><span>50% down payment</span><span>9–12 month payment plan</span><span>Handover planned within one year</span><span>1 MW PMT installed</span><span>Premium roof work complete</span><span>Facing Bahria Town Head Office</span>
+    <span>From PKR 8,500 per sq ft</span><span>50% down payment</span><span>9–12 month payment plan</span><span>Titled plot — Liberty Commercial</span><span>1 MW PMT installed</span><span>Premium roof work complete</span><span>Facing Bahria Town Head Office</span>
+    <span>From PKR 8,500 per sq ft</span><span>50% down payment</span><span>9–12 month payment plan</span><span>Titled plot — Liberty Commercial</span><span>1 MW PMT installed</span><span>Premium roof work complete</span><span>Facing Bahria Town Head Office</span>
   </div>
 </div>
 
@@ -445,8 +455,8 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
       visitor already knows. Midway Commercial A &amp; B and the town's daily amenities are
       minutes away on foot.</p>
       <div class="distance">
-        <b>0<span style="font-size:1rem">&nbsp;min</span></b>
-        <p>Across the road from the Head Office — not near it, in front of it.</p>
+        <b>0<span style="font-size:1rem">&nbsp;min walk</span></b>
+        <p>The Head Office is across the road — not near it, in front of it.</p>
       </div>
       <p class="address">Plot 250–253, Precinct-4, Avenue-5,<br>
       Liberty Commercial, opposite Head Office,<br>
@@ -523,7 +533,7 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
         <span class="unit-no">A·01</span>
         <div class="unit-name"><b>One-bed lounge apartment</b><p>A tight, efficient start — first home or first investment.</p></div>
         <div class="unit-size">550–575<small>sq ft</small></div>
-        <div class="unit-thumb"><img src="images/interior2.jpg" alt="Apartment interior, plastered walls"></div>
+        <div class="unit-thumb"><img src="images/balcony.jpg" alt="Balcony view over the boulevard from an apartment"></div>
       </div>
       <div class="unit">
         <span class="unit-no">A·02</span>
@@ -661,10 +671,14 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
       filmed on site, not rendered. Midway Residency is a project of Syed Real Estate
       Builders &amp; Developers.</p>
     </div>
-    <p class="fine">Construction status, unit sizes, features and indicative pricing are as stated
-    in the developer's brochure, site walkthroughs and updates current at July 2026. Handover timing is a plan, not a guarantee. Prices and
-    availability change — always request the latest price list and verify status, payment terms and
-    documentation before making any commitment. This page is marketing material, not an offer.</p>
+    <div>
+      <p class="fine">Construction status, unit sizes, features and indicative pricing are as stated
+      in the developer's brochure, site walkthroughs and updates current at July 2026.
+      Handover timing is a plan, not a guarantee.</p>
+      <p class="fine">Prices and availability change — always request the latest price list and verify
+      status, payment terms and documentation before making any commitment. This page is
+      marketing material, not an offer.</p>
+    </div>
   </div>
 </footer>
 
@@ -675,7 +689,7 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
 <script>
 const io = new IntersectionObserver((entries)=>{
   for (const e of entries) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-},{threshold:.15});
+},{threshold:.05,rootMargin:"0px 0px 10% 0px"});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const lightbox=document.querySelector('.lightbox'), lightboxImage=lightbox.querySelector('img');
 document.querySelectorAll('.gallery .cell img').forEach(img=>img.addEventListener('click',()=>{lightboxImage.src=img.src;lightboxImage.alt=img.alt;lightbox.classList.add('open');document.body.style.overflow='hidden'}));
