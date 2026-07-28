@@ -95,7 +95,7 @@ h2{
 .hero{
   position:relative;padding:0;min-height:88vh;
   display:flex;align-items:flex-end;
-  background:url("images/hero-midway-board.jpg") center 38%/cover no-repeat;
+  background:url("images/hero-midway-board.jpg") center top/cover no-repeat;
 }
 .hero::after{
   content:"";position:absolute;inset:0;
@@ -325,12 +325,144 @@ h2{
 .photo-grid .cell:nth-child(1) img,.photo-grid .cell:nth-child(2) img,.photo-grid .cell:nth-child(6) img,.photo-grid .cell:nth-child(7) img{aspect-ratio:16/10}
 
 /* ---------- lightbox ---------- */
-.lightbox{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:30px;background:rgba(11,18,15,.94);backdrop-filter:blur(16px)}
-.lightbox.open{display:grid}
-.lightbox img{max-width:min(94vw,1600px);max-height:88vh;object-fit:contain;box-shadow:0 40px 90px rgba(0,0,0,.45)}
-.lightbox button{position:absolute;right:22px;top:18px;border:0;background:transparent;color:#fff;font:300 2.4rem/1 var(--body);cursor:pointer;padding:10px}
+.lightbox{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:30px;background:rgba(11,18,15,.95);backdrop-filter:blur(16px)}
+.lightbox.open{display:flex;flex-direction:column;justify-content:center;align-items:center}
+.lightbox-container{position:relative;display:flex;flex-direction:column;align-items:center;max-width:min(94vw,1600px);max-height:88vh}
+.lightbox img{max-width:100%;max-height:78vh;object-fit:contain;box-shadow:0 40px 90px rgba(0,0,0,.45);border-radius:4px}
+.lightbox-caption{color:#DDD9CF;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;margin-top:14px;text-align:center;max-width:600px}
+.lightbox-counter{color:var(--amber);font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;margin-top:4px}
+.lightbox-close{position:absolute;right:22px;top:18px;border:0;background:rgba(255,255,255,.1);color:#fff;font:300 1.8rem/1 var(--body);cursor:pointer;padding:6px 14px;border-radius:50%;transition:background .2s}
+.lightbox-close:hover{background:var(--palm)}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(255,255,255,.12);color:#fff;font-size:1.5rem;padding:12px 18px;border-radius:50%;cursor:pointer;transition:all .2s;z-index:210}
+.lightbox-nav:hover{background:var(--palm);transform:translateY(-50%) scale(1.08)}
+.lightbox-prev{left:20px}
+.lightbox-next{right:20px}
 
-/* ---------- CTA ---------- */
+/* ---------- scroll progress ---------- */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--palm),var(--amber));z-index:1001;width:0%;transition:width .1s ease}
+
+/* ---------- sticky mobile action bar ---------- */
+.mobile-sticky-bar{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:900;
+  background:rgba(31,91,70,.96);backdrop-filter:blur(12px);
+  padding:10px 16px;border-top:1px solid rgba(255,255,255,.15);
+  box-shadow:0 -10px 30px rgba(0,0,0,.25);
+  align-items:center;justify-content:space-around;gap:8px;
+}
+.m-btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  flex:1;padding:10px 12px;border-radius:99px;text-decoration:none;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;font-weight:500;
+  transition:all .2s;text-align:center;
+}
+.m-wa{background:#25D366;color:#fff;font-weight:600}
+.m-call{background:rgba(255,255,255,.15);color:#fff}
+.m-calc{background:var(--amber);color:#fff;font-weight:600}
+@media (max-width:768px){
+  .mobile-sticky-bar{display:flex}
+  body{padding-bottom:60px}
+}
+
+/* ---------- distance matrix ---------- */
+.distance-matrix{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;
+}
+.dist-card{
+  background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px;
+  display:flex;align-items:flex-start;gap:14px;transition:transform .2s,box-shadow .2s;
+}
+.dist-card:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(34,35,31,.15)}
+.dist-icon{font-size:1.5rem;line-height:1}
+.dist-info b{font-family:var(--display);font-size:1.02rem;display:block;color:var(--ink)}
+.dist-info span{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--concrete);display:block;margin-top:3px}
+
+/* ---------- unit filter & spec modal ---------- */
+.unit-filter-bar{
+  display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;
+}
+.unit-tab{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:8px 18px;border-radius:99px;border:1px solid var(--line);background:transparent;
+  color:var(--ink);cursor:pointer;transition:all .2s;
+}
+.unit-tab.active,.unit-tab:hover{background:var(--palm);color:#fff;border-color:var(--palm)}
+.unit-spec-btn{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:6px 14px;border-radius:99px;border:1px solid var(--palm);background:transparent;
+  color:var(--palm);cursor:pointer;transition:all .2s;margin-top:6px;display:inline-block;
+}
+.unit-spec-btn:hover{background:var(--palm);color:#fff}
+
+/* ---------- modal overlay ---------- */
+.modal-overlay{
+  position:fixed;inset:0;z-index:1000;display:none;place-items:center;
+  background:rgba(15,20,18,.82);backdrop-filter:blur(10px);padding:20px;
+}
+.modal-overlay.open{display:grid}
+.modal-card{
+  background:var(--plaster);border:1px solid var(--line);border-radius:12px;
+  max-width:580px;width:100%;max-height:90vh;overflow-y:auto;padding:32px;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);position:relative;
+}
+.modal-close{
+  position:absolute;right:18px;top:18px;border:0;background:rgba(34,35,31,.08);
+  color:var(--ink);font-size:1.3rem;width:34px;height:34px;border-radius:50%;
+  cursor:pointer;display:grid;place-items:center;transition:background .2s;
+}
+.modal-close:hover{background:rgba(34,35,31,.2)}
+
+/* ---------- payment calculator ---------- */
+.calculator-section{
+  background:var(--ink);color:var(--plaster);padding:88px 0;
+}
+.calculator-section .eyebrow{color:var(--amber)}
+.calculator-section .eyebrow::before{background:var(--amber)}
+.calculator-section h2{color:#fff}
+.calc-card{
+  background:#2B2C27;border:1px solid rgba(255,255,255,.12);border-radius:12px;
+  padding:32px;margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:36px;
+}
+.calc-field{margin-bottom:22px}
+.calc-field label{
+  display:block;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;color:#B9B5AA;margin-bottom:8px;
+}
+.calc-select,.calc-input{
+  width:100%;font-family:var(--body);font-size:.95rem;padding:12px 14px;
+  background:#1E1F1B;border:1px solid rgba(255,255,255,.16);color:#fff;
+  border-radius:6px;outline:none;transition:border-color .2s;
+}
+.calc-select:focus,.calc-input:focus{border-color:var(--amber)}
+.calc-pills{display:flex;gap:8px;flex-wrap:wrap}
+.calc-pill{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;
+  padding:8px 14px;border-radius:6px;border:1px solid rgba(255,255,255,.18);
+  background:#1E1F1B;color:#DDD9CF;cursor:pointer;transition:all .2s;
+}
+.calc-pill.active,.calc-pill:hover{background:var(--amber);color:#fff;border-color:var(--amber)}
+.calc-slider{
+  width:100%;accent-color:var(--amber);cursor:pointer;height:6px;margin-top:6px;
+}
+.calc-summary{
+  background:#1E1F1B;border:1px solid rgba(255,255,255,.12);border-radius:10px;
+  padding:24px;display:flex;flex-direction:column;justify-content:space-between;
+}
+.calc-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.calc-row:last-child{border-bottom:none}
+.calc-row span{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:#B9B5AA}
+.calc-row b{font-family:var(--display);font-size:1.15rem;color:#fff}
+.calc-row.highlight b{font-size:1.4rem;color:var(--amber)}
+.calc-wa-btn{
+  margin-top:20px;text-align:center;width:100%;background:var(--palm);color:#fff;
+  font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;text-decoration:none;
+  padding:14px;border-radius:999px;display:inline-block;transition:background .2s;
+}
+.calc-wa-btn:hover{background:var(--palm-deep)}
+
+/* ---------- CTA & Contact Card ---------- */
 .book{
   position:relative;padding:120px 0;
   background:url("images/sky-tower.jpg") center 72%/cover no-repeat;
@@ -339,6 +471,7 @@ h2{
 .book .wrap{position:relative;z-index:2}
 .book h2{max-width:15ch}
 .book .urdu-line{font-family:var(--urdu);color:var(--palm-deep);font-size:1.05rem;margin:14px 0 30px;line-height:2.2}
+
 .contact-card{
   display:inline-flex;flex-direction:column;gap:12px;
   background:#fff;border:1px solid var(--line);border-radius:8px;
@@ -359,10 +492,14 @@ footer p{font-size:.8rem;max-width:54ch;line-height:1.7}
 footer .fine{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;line-height:1.9}
 footer .fine + .fine{margin-top:14px}
 
-/* ---------- responsive ---------- */
+/* ---------- CTA & Legal modal buttons ---------- */
+.verify-btn{margin-top:18px;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+
+/* ---------- responsive updates ---------- */
 @media (max-width: 900px){
   section{padding:64px 0}
-  .split,.log-grid{grid-template-columns:1fr;gap:40px}
+  .split,.log-grid,.calc-card{grid-template-columns:1fr;gap:30px}
+  .distance-matrix{grid-template-columns:repeat(2,1fr)}
   .facts .wrap{grid-template-columns:repeat(2,1fr)}
   .fact{padding:18px 16px 18px 0}
   .fact:nth-child(2){border-right:none}
@@ -386,6 +523,7 @@ footer .fine + .fine{margin-top:14px}
   .hero-inner{padding:230px 0 56px}
   .views blockquote{font-size:1.4rem}
   .facts .wrap{grid-template-columns:1fr 1fr}
+  .distance-matrix{grid-template-columns:1fr}
   .gallery-head{display:block;margin-bottom:26px}
   .photo-grid{gap:10px}
   .photo-grid .cell:nth-child(n){grid-column:1/-1}
@@ -396,13 +534,15 @@ footer .fine + .fine{margin-top:14px}
 </head>
 <body>
 
+<div id="scroll-progress" class="scroll-progress"></div>
+
 <header>
   <a class="brand" href="#top">
     <b>MIDWAY RESIDENCY</b>
     <span>Bahria Town Karachi</span>
   </a>
   <nav class="nav" aria-label="Main navigation">
-    <a href="#location">Location</a><a href="#progress">Progress</a><a href="#units">Residences</a><a href="#gallery">Gallery</a>
+    <a href="#location">Location</a><a href="#progress">Progress</a><a href="#units">Residences</a><a href="#calculator">Calculator</a><a href="#gallery">Gallery</a>
   </nav>
   <a class="header-cta" href="https://wa.me/923214455975">WhatsApp us</a>
 </header>
@@ -420,7 +560,7 @@ footer .fine + .fine{margin-top:14px}
       handover planned within one year.</p>
       <div class="cta-row">
         <a class="btn btn-solid" href="#book">Book a site visit</a>
-        <a class="btn btn-ghost" href="#units">See units &amp; prices</a>
+        <a class="btn btn-ghost" href="#calculator">Calculator &amp; Prices</a>
       </div>
     </div>
   </div>
@@ -446,26 +586,60 @@ footer .fine + .fine{margin-top:14px}
 
 <!-- ================= LOCATION ================= -->
 <section id="location">
-  <div class="wrap split">
-    <div class="reveal">
-      <p class="eyebrow">The location</p>
-      <h2>Where the whole town passes your door.</h2>
-      <p class="lede">Midway Residency fronts the main boulevard at the P4 entrance, directly
-      facing the Bahria Town Karachi Head Office — the one address every resident, dealer and
-      visitor already knows. Midway Commercial A &amp; B and the town's daily amenities are
-      minutes away on foot.</p>
-      <div class="distance">
-        <b>0<span style="font-size:1rem">&nbsp;min walk</span></b>
-        <p>The Head Office is across the road — not near it, in front of it.</p>
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <p class="eyebrow">The location</p>
+        <h2>Where the whole town passes your door.</h2>
+        <p class="lede">Midway Residency fronts the main boulevard at the P4 entrance, directly
+        facing the Bahria Town Karachi Head Office — the one address every resident, dealer and
+        visitor already knows. Midway Commercial A &amp; B and the town's daily amenities are
+        minutes away on foot.</p>
+        <div class="distance">
+          <b>0<span style="font-size:1rem">&nbsp;min walk</span></b>
+          <p>The Head Office is across the road — not near it, in front of it.</p>
+        </div>
+        <p class="address">Plot 250–253, Precinct-4, Avenue-5,<br>
+        Liberty Commercial, opposite Head Office,<br>
+        Bahria Town Karachi</p>
       </div>
-      <p class="address">Plot 250–253, Precinct-4, Avenue-5,<br>
-      Liberty Commercial, opposite Head Office,<br>
-      Bahria Town Karachi</p>
+      <figure class="figure reveal">
+        <img src="images/boulevard.jpg" alt="Palm-lined main boulevard of Bahria Town Karachi leading past the project">
+        <span class="stamp">Main boulevard · filmed on site</span>
+      </figure>
     </div>
-    <figure class="figure reveal">
-      <img src="images/boulevard.jpg" alt="Palm-lined main boulevard of Bahria Town Karachi leading past the project">
-      <span class="stamp">Main boulevard · filmed on site</span>
-    </figure>
+
+    <!-- Location distance matrix -->
+    <div class="distance-matrix reveal">
+      <div class="dist-card">
+        <div class="dist-icon">🏢</div>
+        <div class="dist-info">
+          <b>Bahria Head Office</b>
+          <span>0 min walk · Directly Opposite</span>
+        </div>
+      </div>
+      <div class="dist-card">
+        <div class="dist-icon">🛣️</div>
+        <div class="dist-info">
+          <b>Superhighway Entrance</b>
+          <span>2 mins drive · P4 Gateway</span>
+        </div>
+      </div>
+      <div class="dist-card">
+        <div class="dist-icon">🎡</div>
+        <div class="dist-info">
+          <b>Bahria Adventure Land</b>
+          <span>4 mins drive · Commercial Hub</span>
+        </div>
+      </div>
+      <div class="dist-card">
+        <div class="dist-icon">🕌</div>
+        <div class="dist-info">
+          <b>Grand Jamia Mosque</b>
+          <span>5 mins drive · Iconic Landmark</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -528,34 +702,62 @@ footer .fine + .fine{margin-top:14px}
     <h2>Five ways to own the address.</h2>
     <p class="lede">Every apartment is a lounge plan with open views on both sides —
     the boulevard to the front, Bahria Town's greens to the back.</p>
+
+    <!-- Filter Bar -->
+    <div class="unit-filter-bar reveal" style="margin-top:28px">
+      <button type="button" class="unit-tab active" onclick="filterUnits('all', this)">All Properties</button>
+      <button type="button" class="unit-tab" onclick="filterUnits('apartment', this)">Apartments</button>
+      <button type="button" class="unit-tab" onclick="filterUnits('commercial', this)">Offices &amp; Shops</button>
+    </div>
+
     <div class="unit-rows reveal">
-      <div class="unit">
+      <div class="unit" data-category="apartment">
         <span class="unit-no">A·01</span>
-        <div class="unit-name"><b>One-bed lounge apartment</b><p>A tight, efficient start — first home or first investment.</p></div>
+        <div class="unit-name">
+          <b>One-bed lounge apartment</b>
+          <p>A tight, efficient start — first home or first investment.</p>
+          <button type="button" class="unit-spec-btn" onclick="openUnitModal('A-01','1-Bed Lounge Apartment','550–575 sq ft','Double aspect layout with open lounge, powder bathroom, balcony view facing main boulevard.')">View Specs &amp; Blueprint</button>
+        </div>
         <div class="unit-size">550–575<small>sq ft</small></div>
         <div class="unit-thumb"><img src="images/balcony.jpg" alt="Balcony view over the boulevard from an apartment"></div>
       </div>
-      <div class="unit">
+      <div class="unit" data-category="apartment">
         <span class="unit-no">A·02</span>
-        <div class="unit-name"><b>Two-bed lounge apartment</b><p>Sized for small families, without giving up the double aspect.</p></div>
+        <div class="unit-name">
+          <b>Two-bed lounge apartment</b>
+          <p>Sized for small families, without giving up the double aspect.</p>
+          <button type="button" class="unit-spec-btn" onclick="openUnitModal('A-02','2-Bed Lounge Apartment','1,070–1,115 sq ft','Spacious layout for small families, master bedroom suite, tiled terrace, double aspect views.')">View Specs &amp; Blueprint</button>
+        </div>
         <div class="unit-size">1,070–1,115<small>sq ft</small></div>
         <div class="unit-thumb"><img src="images/terrace.jpg" alt="Balcony terrace with patterned tile dado"></div>
       </div>
-      <div class="unit">
+      <div class="unit" data-category="apartment">
         <span class="unit-no">A·03</span>
-        <div class="unit-name"><b>Three-bed lounge apartment</b><p>For families who won't compromise on space or luxury.</p></div>
+        <div class="unit-name">
+          <b>Three-bed lounge apartment</b>
+          <p>For families who won't compromise on space or luxury.</p>
+          <button type="button" class="unit-spec-btn" onclick="openUnitModal('A-03','3-Bed Lounge Apartment','1,430–1,730 sq ft','Executive family floorplan, expansive lounge, dual balconies with views of Bahria greens.')">View Specs &amp; Blueprint</button>
+        </div>
         <div class="unit-size">1,430–1,730<small>sq ft</small></div>
         <div class="unit-thumb"><img src="images/view-green.jpg" alt="View over Bahria Town greens from the building"></div>
       </div>
-      <div class="unit">
+      <div class="unit" data-category="commercial">
         <span class="unit-no">C·01</span>
-        <div class="unit-name"><b>Office spaces</b><p>Facing the Head Office — your business where the town does business.</p></div>
+        <div class="unit-name">
+          <b>Office spaces</b>
+          <p>Facing the Head Office — your business where the town does business.</p>
+          <button type="button" class="unit-spec-btn" onclick="openUnitModal('C-01','Commercial Office Space','400–700 sq ft','Direct Head Office facing frontage, tiled floor finish, high footfall commercial corridor.')">View Specs &amp; Blueprint</button>
+        </div>
         <div class="unit-size">400–700<small>sq ft</small></div>
         <div class="unit-thumb"><img src="images/office.jpg" alt="Office floor with tiled flooring and boulevard windows"></div>
       </div>
-      <div class="unit">
+      <div class="unit" data-category="commercial">
         <span class="unit-no">C·02</span>
-        <div class="unit-name"><b>Shops</b><p>Ground-floor frontage on the busiest approach in Bahria Town Karachi.</p></div>
+        <div class="unit-name">
+          <b>Shops</b>
+          <p>Ground-floor frontage on the busiest approach in Bahria Town Karachi.</p>
+          <button type="button" class="unit-spec-btn" onclick="openUnitModal('C-02','Ground Floor Commercial Shop','~450 sq ft','Ground floor boulevard access, high visibility, ideal for retail outlet or bank branch.')">View Specs &amp; Blueprint</button>
+        </div>
         <div class="unit-size">~450<small>sq ft</small></div>
         <div class="unit-thumb"><img src="images/signboard.jpg" alt="Ground floor commercial bays of Midway Residency"></div>
       </div>
@@ -564,6 +766,60 @@ footer .fine + .fine{margin-top:14px}
       <b>From PKR 8,500 / sq ft</b><span>on cash</span>
       <span>50% down payment · balance over 9 to 12 months</span>
       <span>Ask for the current price list &amp; floor plans</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CALCULATOR ================= -->
+<section class="calculator-section" id="calculator">
+  <div class="wrap">
+    <p class="eyebrow">Financial Planner</p>
+    <h2>Interactive Installment Calculator</h2>
+    <p class="lede">Estimate your down payment and monthly cash flow. Rates start at PKR 8,500 per sq ft.</p>
+
+    <div class="calc-card reveal">
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label for="calc-unit-select">Select Unit Type</label>
+          <select id="calc-unit-select" class="calc-select" onchange="updateCalculator()">
+            <option value="550" data-name="1-Bed Lounge Apartment (550 sq ft)">1-Bed Lounge Apartment (550 sq ft)</option>
+            <option value="1090" data-name="2-Bed Lounge Apartment (1,090 sq ft)">2-Bed Lounge Apartment (1,090 sq ft)</option>
+            <option value="1580" data-name="3-Bed Lounge Apartment (1,580 sq ft)">3-Bed Lounge Apartment (1,580 sq ft)</option>
+            <option value="550c" data-name="Commercial Office (550 sq ft)">Commercial Office (550 sq ft)</option>
+            <option value="450" data-name="Ground Floor Shop (450 sq ft)">Ground Floor Shop (450 sq ft)</option>
+          </select>
+        </div>
+
+        <div class="calc-field">
+          <label>Down Payment (<span id="dp-val">50</span>%)</label>
+          <input type="range" id="dp-range" class="calc-slider" min="30" max="70" step="10" value="50" oninput="updateCalculator()">
+          <div class="calc-pills" style="margin-top:10px">
+            <button type="button" class="calc-pill" onclick="setDP(30)">30%</button>
+            <button type="button" class="calc-pill active" onclick="setDP(50)">50%</button>
+            <button type="button" class="calc-pill" onclick="setDP(70)">70%</button>
+          </div>
+        </div>
+
+        <div class="calc-field">
+          <label>Payment Tenure</label>
+          <div class="calc-pills">
+            <button type="button" class="calc-pill tenure-btn" onclick="setTenure(9, this)">9 Months</button>
+            <button type="button" class="calc-pill tenure-btn active" onclick="setTenure(12, this)">12 Months</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-summary">
+        <div>
+          <div class="calc-row"><span>Indicative Rate</span><b>PKR 8,500 / sq ft</b></div>
+          <div class="calc-row"><span>Est. Total Price</span><b id="res-total">PKR 4,675,000</b></div>
+          <div class="calc-row highlight"><span>Down Payment</span><b id="res-dp">PKR 2,337,500</b></div>
+          <div class="calc-row"><span>Monthly Installment</span><b id="res-monthly">PKR 194,791 / mo</b></div>
+          <div class="calc-row"><span>Balance on Handover</span><b id="res-possession">PKR 0</b></div>
+        </div>
+
+        <a id="calc-wa-link" href="#" target="_blank" class="calc-wa-btn">💬 Send Calculation on WhatsApp</a>
+      </div>
     </div>
   </div>
 </section>
@@ -614,6 +870,7 @@ footer .fine + .fine{margin-top:14px}
         <li><span class="tick">✦</span>Titled commercial plot (250–253, Bahria Liberty Commercial) with possession certificate — documentation shown on request</li>
         <li><span class="tick">✦</span>Construction documented stage-by-stage since day one — see the record above</li>
       </ul>
+      <button type="button" class="btn btn-ghost verify-btn" onclick="openVerifyModal()">🔍 Verify Plot Title &amp; Approvals</button>
     </div>
   </div>
 </section>
@@ -682,21 +939,221 @@ footer .fine + .fine{margin-top:14px}
   </div>
 </footer>
 
+<!-- Lightbox Modal -->
 <div class="lightbox" role="dialog" aria-modal="true" aria-label="Expanded project photo">
-  <button type="button" aria-label="Close image">×</button><img alt="">
+  <button type="button" class="lightbox-close" aria-label="Close image" onclick="closeLightbox()">×</button>
+  <button type="button" class="lightbox-nav lightbox-prev" aria-label="Previous photo" onclick="prevLightboxImage()">‹</button>
+  <button type="button" class="lightbox-nav lightbox-next" aria-label="Next photo" onclick="nextLightboxImage()">›</button>
+  <div class="lightbox-container">
+    <img alt="">
+    <div class="lightbox-caption"></div>
+    <div class="lightbox-counter"></div>
+  </div>
+</div>
+
+<!-- Unit Spec Modal -->
+<div id="unit-modal" class="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <button type="button" class="modal-close" onclick="closeUnitModal()">×</button>
+    <div class="eyebrow" id="u-modal-code">A-01</div>
+    <h3 id="u-modal-title" style="font-family:var(--display);font-size:1.6rem;font-weight:800;margin-bottom:8px">1-Bed Lounge Apartment</h3>
+    <p id="u-modal-size" style="font-family:var(--mono);font-size:.9rem;color:var(--palm);margin-bottom:16px">550–575 sq ft</p>
+    <p id="u-modal-desc" style="font-size:.95rem;color:#4c4b44;line-height:1.7;margin-bottom:20px"></p>
+    
+    <div style="background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px;margin-bottom:20px">
+      <b style="font-family:var(--display);display:block;margin-bottom:8px;font-size:1rem">Building &amp; Layout Highlights:</b>
+      <ul style="list-style:none;font-size:.88rem;color:#4c4b44;line-height:1.8">
+        <li>✦ Double aspect layout (front boulevard + back greens)</li>
+        <li>✦ Tiled staircases, corridors &amp; bathroom tiling</li>
+        <li>✦ Dedicated 1 MW PMT power &amp; standby generator</li>
+        <li>✦ Security grills &amp; CCTV surveillance</li>
+      </ul>
+    </div>
+
+    <a id="u-modal-wa" href="#" target="_blank" class="btn btn-solid" style="width:100%;text-align:center">Inquire Availability on WhatsApp</a>
+  </div>
+</div>
+
+<!-- Legal Verification Modal -->
+<div id="verify-modal" class="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <button type="button" class="modal-close" onclick="closeVerifyModal()">×</button>
+    <div class="eyebrow">Verified Documentation</div>
+    <h3 style="font-family:var(--display);font-size:1.5rem;font-weight:800;margin-bottom:12px">Bahria Town Liberty Commercial</h3>
+    <div style="background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px;margin:16px 0">
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)"><span style="font-family:var(--mono);font-size:.8rem;color:var(--concrete)">Plot Numbers:</span><b>Plots 250, 251, 252 &amp; 253</b></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)"><span style="font-family:var(--mono);font-size:.8rem;color:var(--concrete)">Location:</span><b>Precinct-4, Avenue-5</b></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)"><span style="font-family:var(--mono);font-size:.8rem;color:var(--concrete)">Developer:</span><b>Syed Real Estate &amp; Developers</b></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-family:var(--mono);font-size:.8rem;color:var(--concrete)">Status:</span><b style="color:var(--palm)">Structure Complete (15 Storeys)</b></div>
+    </div>
+    <p style="font-size:.85rem;color:var(--concrete);line-height:1.6;margin-bottom:20px">Ground breaking was performed by the Country Head of Bahria Town Pakistan. All titled paperwork and possession documents are available for inspection at the site office.</p>
+    <a href="https://wa.me/923214455975?text=Hi%20Noor,%20I'd%20like%20to%20request%20the%20official%20plot%20documentation%20and%20possession%20certificate." target="_blank" class="btn btn-solid" style="width:100%;text-align:center">Request Docs via WhatsApp</a>
+  </div>
+</div>
+
+<!-- Mobile Sticky Bar -->
+<div class="mobile-sticky-bar" aria-label="Mobile quick actions">
+  <a href="https://wa.me/923214455975?text=Hi%20Noor,%20I'm%20interested%20in%20Midway%20Residency." class="m-btn m-wa" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.993L2 22l5.233-1.237a9.96 9.96 0 004.779 1.221h.004c5.505 0 9.988-4.478 9.989-9.985 0-2.667-1.04-5.176-2.926-7.062A9.919 9.919 0 0012.012 2z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+  <a href="tel:+923214455975" class="m-btn m-call">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    <span>Call</span>
+  </a>
+  <a href="#calculator" class="m-btn m-calc">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6 14h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zM9 17H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V7h2v2z"/></svg>
+    <span>Plan</span>
+  </a>
 </div>
 
 <script>
+// --- Reveal on scroll ---
 const io = new IntersectionObserver((entries)=>{
   for (const e of entries) if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
 },{threshold:.05,rootMargin:"0px 0px 10% 0px"});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-const lightbox=document.querySelector('.lightbox'), lightboxImage=lightbox.querySelector('img');
-document.querySelectorAll('.gallery .cell img').forEach(img=>img.addEventListener('click',()=>{lightboxImage.src=img.src;lightboxImage.alt=img.alt;lightbox.classList.add('open');document.body.style.overflow='hidden'}));
-const closeLightbox=()=>{lightbox.classList.remove('open');document.body.style.overflow='';lightboxImage.src=''};
-lightbox.querySelector('button').addEventListener('click',closeLightbox);
-lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+
+// --- Top Scroll Progress Bar ---
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const st = h.scrollTop || document.body.scrollTop;
+  const sh = h.scrollHeight || document.body.scrollHeight;
+  const percent = (st / (sh - h.clientHeight)) * 100;
+  const progressEl = document.getElementById('scroll-progress');
+  if (progressEl) progressEl.style.width = percent + '%';
+});
+
+// --- Lightbox Gallery with Nav ---
+const galleryImages = Array.from(document.querySelectorAll('.gallery .cell img'));
+let currentImageIndex = 0;
+const lightbox = document.querySelector('.lightbox');
+const lightboxImage = lightbox.querySelector('img');
+const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+const lightboxCounter = lightbox.querySelector('.lightbox-counter');
+
+function showLightboxImage(index) {
+  if (index < 0) index = galleryImages.length - 1;
+  if (index >= galleryImages.length) index = 0;
+  currentImageIndex = index;
+  const targetImg = galleryImages[currentImageIndex];
+  lightboxImage.src = targetImg.src;
+  lightboxImage.alt = targetImg.alt;
+  lightboxCaption.textContent = targetImg.nextElementSibling ? targetImg.nextElementSibling.textContent : targetImg.alt;
+  lightboxCounter.textContent = `Photo ${currentImageIndex + 1} of ${galleryImages.length}`;
+}
+
+galleryImages.forEach((img, idx)=>{
+  img.addEventListener('click', ()=>{
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    showLightboxImage(idx);
+  });
+});
+
+const closeLightbox = ()=>{
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+  lightboxImage.src = '';
+};
+
+function prevLightboxImage() { showLightboxImage(currentImageIndex - 1); }
+function nextLightboxImage() { showLightboxImage(currentImageIndex + 1); }
+
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') prevLightboxImage();
+  if (e.key === 'ArrowRight') nextLightboxImage();
+});
+
+// --- Unit Filtering ---
+function filterUnits(category, btn) {
+  document.querySelectorAll('.unit-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.unit-rows .unit').forEach(unit => {
+    if (category === 'all' || unit.dataset.category === category) {
+      unit.style.display = 'grid';
+    } else {
+      unit.style.display = 'none';
+    }
+  });
+}
+
+// --- Unit Spec Modal ---
+function openUnitModal(code, title, size, desc) {
+  document.getElementById('u-modal-code').textContent = code;
+  document.getElementById('u-modal-title').textContent = title;
+  document.getElementById('u-modal-size').textContent = size;
+  document.getElementById('u-modal-desc').textContent = desc;
+  const msg = encodeURIComponent(`Hi Noor, I am interested in unit ${code} (${title}). Please send full specs and current availability.`);
+  document.getElementById('u-modal-wa').href = `https://wa.me/923214455975?text=${msg}`;
+  document.getElementById('unit-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeUnitModal() {
+  document.getElementById('unit-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// --- Legal Verification Modal ---
+function openVerifyModal() {
+  document.getElementById('verify-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVerifyModal() {
+  document.getElementById('verify-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close modals on overlay click or Escape
+document.querySelectorAll('.modal-overlay').forEach(modal => {
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'), document.body.style.overflow=''; });
+});
+
+// --- Calculator Logic ---
+let selectedTenure = 12;
+
+function setDP(val) {
+  document.getElementById('dp-range').value = val;
+  document.querySelectorAll('.calc-field:nth-child(2) .calc-pill').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  updateCalculator();
+}
+
+function setTenure(months, btn) {
+  selectedTenure = months;
+  document.querySelectorAll('.tenure-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  updateCalculator();
+}
+
+function updateCalculator() {
+  const select = document.getElementById('calc-unit-select');
+  const sqftVal = select.value === '550c' ? 550 : parseInt(select.value);
+  const unitName = select.options[select.selectedIndex].dataset.name;
+  const rate = 8500;
+  const totalCost = sqftVal * rate;
+
+  const dpPercent = parseInt(document.getElementById('dp-range').value);
+  document.getElementById('dp-val').textContent = dpPercent;
+
+  const dpAmount = totalCost * (dpPercent / 100);
+  const balance = totalCost - dpAmount;
+  const monthlyInstallment = Math.round(balance / selectedTenure);
+
+  document.getElementById('res-total').textContent = 'PKR ' + totalCost.toLocaleString();
+  document.getElementById('res-dp').textContent = 'PKR ' + dpAmount.toLocaleString();
+  document.getElementById('res-monthly').textContent = 'PKR ' + monthlyInstallment.toLocaleString() + ' / mo';
+  document.getElementById('res-possession').textContent = 'PKR 0 (Fully Covered)';
+
+  const text = `Hi Noor, I calculated an installment plan for ${unitName}:\n- Total: PKR ${totalCost.toLocaleString()}\n- Down Payment (${dpPercent}%): PKR ${dpAmount.toLocaleString()}\n- ${selectedTenure} Monthly Installments: PKR ${monthlyInstallment.toLocaleString()}/mo.\nPlease share current availability.`;
+  document.getElementById('calc-wa-link').href = `https://wa.me/923214455975?text=${encodeURIComponent(text)}`;
+}
+
+// Initial calc update
+updateCalculator();
 </script>
 
 </body>
