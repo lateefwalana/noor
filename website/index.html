@@ -303,12 +303,22 @@ h2{
 .trust-list .tick{color:var(--amber)}
 
 /* ---------- gallery ---------- */
-.gallery .strip .cell{background:var(--ink)}
+.gallery-head{display:flex;align-items:end;justify-content:space-between;gap:40px;margin-bottom:34px}
+.gallery-head .lede{margin:0}
+.media-label{font-family:var(--mono);font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--concrete);margin:36px 0 13px;display:flex;align-items:center;gap:12px}
+.media-label::after{content:"";height:1px;background:var(--line);flex:1}
+.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.gallery .cell{background:var(--ink);padding:9px;border-radius:6px;overflow:hidden;min-width:0}
 .gallery .cell figcaption{justify-content:space-between}
-.cell-video{flex-basis:min(680px,88vw)}
+.cell-video{width:100%}
 .video-shell{position:relative;overflow:hidden;border-radius:2px;background:#111}
 .video-shell video{display:block;aspect-ratio:16/9;object-fit:contain;background:#0b0e0c;filter:none}
 .video-tag{position:absolute;left:10px;top:10px;pointer-events:none;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(16,61,49,.82);padding:6px 9px;border-radius:99px;backdrop-filter:blur(8px)}
+.photo-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-flow:dense;gap:14px}
+.photo-grid .cell{grid-column:span 4}
+.photo-grid .cell:nth-child(1),.photo-grid .cell:nth-child(4){grid-column:span 6}
+.photo-grid .cell img{aspect-ratio:4/3;height:100%;max-height:330px}
+.photo-grid .cell:nth-child(1) img,.photo-grid .cell:nth-child(4) img{aspect-ratio:16/10}
 
 /* ---------- lightbox ---------- */
 .lightbox{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:30px;background:rgba(11,18,15,.94);backdrop-filter:blur(16px)}
@@ -356,12 +366,18 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
   footer .wrap{grid-template-columns:1fr}
   .render-card{transform:none;max-width:100%}
   .nav{display:none}
+  .video-grid{grid-template-columns:1fr}
+  .photo-grid .cell,.photo-grid .cell:nth-child(1),.photo-grid .cell:nth-child(4){grid-column:span 6}
 }
 @media (max-width: 640px){
   .brand span{display:none}
   .hero{min-height:78vh}
   .views blockquote{font-size:1.4rem}
   .facts .wrap{grid-template-columns:1fr 1fr}
+  .gallery-head{display:block;margin-bottom:26px}
+  .photo-grid{gap:10px}
+  .photo-grid .cell,.photo-grid .cell:nth-child(1),.photo-grid .cell:nth-child(4){grid-column:1/-1}
+  .gallery .cell{padding:7px}
 }
 </style>
 </head>
@@ -590,10 +606,12 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
 <!-- ================= GALLERY ================= -->
 <section class="gallery" id="gallery">
   <div class="wrap">
-    <p class="eyebrow">From the camera roll</p>
-    <h2>See it exactly as it stands.</h2>
-    <p class="lede" style="margin-bottom:34px">Unedited walkthroughs and stills from the site — July 2026.</p>
-    <div class="strip reveal">
+    <div class="gallery-head">
+      <div><p class="eyebrow">From the camera roll</p><h2>See it exactly as it stands.</h2></div>
+      <p class="lede">Restored walkthroughs and honest stills from the site — July 2026.</p>
+    </div>
+    <p class="media-label">Watch the walkthroughs</p>
+    <div class="video-grid reveal">
       <figure class="cell cell-video">
         <div class="video-shell"><video src="video/site-tour-web.mp4" poster="images/video-site-poster-restored.jpg" controls preload="metadata" playsinline></video><span class="video-tag">Restored HD · On-site</span></div>
         <figcaption><span>Exterior &amp; project tour</span><span>01:34</span></figcaption>
@@ -602,6 +620,9 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
         <div class="video-shell"><video src="video/interior-walk-web.mp4" poster="images/video-interior-poster-restored.jpg" controls preload="metadata" playsinline></video><span class="video-tag">Restored HD · On-site</span></div>
         <figcaption><span>Interior walkthrough</span><span>01:43</span></figcaption>
       </figure>
+    </div>
+    <p class="media-label">Explore the building</p>
+    <div class="photo-grid reveal">
       <figure class="cell"><img src="images/hero-facade.jpg" alt="Facade with balconies, grey structure" loading="lazy"><figcaption><span>Balcony facade</span></figcaption></figure>
       <figure class="cell"><img src="images/bathroom.jpg" alt="Tiled bathroom" loading="lazy"><figcaption><span>Bathroom tiling</span></figcaption></figure>
       <figure class="cell"><img src="images/blockwork.jpg" alt="Blockwork facade detail" loading="lazy"><figcaption><span>Blockwork detail</span></figcaption></figure>
