@@ -1,6 +1,6 @@
 # Midway Residency website
 
-Premium static property website for Home & Own Properties, ready for GitHub Pages.
+Premium static property website for Syed Real Estate Builders & Developers, ready for GitHub Pages.
 
 ## Publish
 
