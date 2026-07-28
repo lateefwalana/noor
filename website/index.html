@@ -305,9 +305,9 @@ h2{
 /* ---------- gallery ---------- */
 .gallery .strip .cell{background:var(--ink)}
 .gallery .cell figcaption{justify-content:space-between}
-.cell-video{flex-basis:360px}
+.cell-video{flex-basis:min(680px,88vw)}
 .video-shell{position:relative;overflow:hidden;border-radius:2px;background:#111}
-.video-shell video{display:block;filter:contrast(1.04) saturate(1.04)}
+.video-shell video{display:block;aspect-ratio:16/9;object-fit:contain;background:#0b0e0c;filter:none}
 .video-tag{position:absolute;left:10px;top:10px;pointer-events:none;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(16,61,49,.82);padding:6px 9px;border-radius:99px;backdrop-filter:blur(8px)}
 
 /* ---------- lightbox ---------- */
@@ -595,11 +595,11 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
     <p class="lede" style="margin-bottom:34px">Unedited walkthroughs and stills from the site — July 2026.</p>
     <div class="strip reveal">
       <figure class="cell cell-video">
-        <div class="video-shell"><video src="video/site-tour-enhanced.mp4" poster="images/video-site-poster.jpg" controls preload="metadata" playsinline></video><span class="video-tag">On-site · July 2026</span></div>
-        <figcaption><span>Project tour</span><span>01:54</span></figcaption>
+        <div class="video-shell"><video src="video/site-tour-web.mp4" poster="images/video-site-poster-restored.jpg" controls preload="metadata" playsinline></video><span class="video-tag">Restored HD · On-site</span></div>
+        <figcaption><span>Exterior &amp; project tour</span><span>01:34</span></figcaption>
       </figure>
       <figure class="cell cell-video">
-        <div class="video-shell"><video src="video/interior-walk-enhanced.mp4" poster="images/video-interior-poster.jpg" controls preload="metadata" playsinline></video><span class="video-tag">On-site · July 2026</span></div>
+        <div class="video-shell"><video src="video/interior-walk-web.mp4" poster="images/video-interior-poster-restored.jpg" controls preload="metadata" playsinline></video><span class="video-tag">Restored HD · On-site</span></div>
         <figcaption><span>Interior walkthrough</span><span>01:43</span></figcaption>
       </figure>
       <figure class="cell"><img src="images/hero-facade.jpg" alt="Facade with balconies, grey structure" loading="lazy"><figcaption><span>Balcony facade</span></figcaption></figure>
