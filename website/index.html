@@ -95,7 +95,7 @@ h2{
 .hero{
   position:relative;padding:0;min-height:88vh;
   display:flex;align-items:flex-end;
-  background:url("images/hero-syed-board.jpg") center 38%/cover no-repeat;
+  background:url("images/hero-midway-board.jpg") center 38%/cover no-repeat;
 }
 .hero::after{
   content:"";position:absolute;inset:0;
@@ -250,12 +250,13 @@ h2{
 
 /* ---------- features ---------- */
 .feat-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  display:grid;grid-template-columns:repeat(12,1fr);gap:1px;
   background:var(--line);border:1px solid var(--line);margin-top:14px;
 }
 .feat{
-  background:var(--plaster);padding:22px 20px;
+  grid-column:span 3;background:var(--plaster);padding:22px 20px;
 }
+.feat:nth-last-child(-n+3){grid-column:span 4}
 .feat b{font-weight:600;font-size:.95rem;display:block}
 .feat span{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concrete)}
 
@@ -340,7 +341,8 @@ h2{
   background:#fff;border:1px solid var(--line);border-radius:8px;
   padding:28px 32px;box-shadow:0 24px 50px -24px rgba(34,35,31,.4);
 }
-.contact-card .who{font-family:var(--display);font-weight:800;font-size:1.15rem}
+.contact-card .who{display:flex;flex-direction:column;align-items:flex-start;text-align:left;font-family:var(--display);font-weight:800;font-size:1.15rem}
+.contact-card .role{display:block;align-self:flex-end;margin:2px 0 0;text-align:right;font-family:var(--body);font-size:.78rem;font-weight:500;color:var(--palm);letter-spacing:.04em}
 .contact-card .who small{display:block;font-family:var(--mono);font-weight:400;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--concrete);margin-top:3px}
 .contact-card a.btn{text-align:center}
 .contact-card .num{font-family:var(--mono);font-size:.95rem;color:var(--ink);text-align:center;text-decoration:none}
@@ -361,6 +363,7 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
   .fact{padding:18px 16px 18px 0}
   .fact:nth-child(2){border-right:none}
   .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .feat,.feat:nth-last-child(-n+3){grid-column:auto}
   .unit{grid-template-columns:36px 1fr auto}
   .unit-thumb{display:none}
   footer .wrap{grid-template-columns:1fr}
@@ -426,8 +429,8 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
 <!-- ================= TICKER ================= -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>From PKR 8,500 per sq ft</span><span>50% down payment</span><span>Up to 12-month payment plan</span><span>Handover planned within one year</span><span>1 MW PMT installed</span><span>Premium roof work complete</span><span>Facing Bahria Town Head Office</span>
-    <span>From PKR 8,500 per sq ft</span><span>50% down payment</span><span>Up to 12-month payment plan</span><span>Handover planned within one year</span><span>1 MW PMT installed</span><span>Premium roof work complete</span><span>Facing Bahria Town Head Office</span>
+    <span>From PKR 8,500 per sq ft</span><span>50% down payment</span><span>9–12 month payment plan</span><span>Handover planned within one year</span><span>1 MW PMT installed</span><span>Premium roof work complete</span><span>Facing Bahria Town Head Office</span>
+    <span>From PKR 8,500 per sq ft</span><span>50% down payment</span><span>9–12 month payment plan</span><span>Handover planned within one year</span><span>1 MW PMT installed</span><span>Premium roof work complete</span><span>Facing Bahria Town Head Office</span>
   </div>
 </div>
 
@@ -549,7 +552,7 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
     </div>
     <div class="price-line reveal">
       <b>From PKR 8,500 / sq ft</b><span>on cash</span>
-      <span>50% down payment · balance over a maximum of 12 months</span>
+      <span>50% down payment · balance over 9 to 12 months</span>
       <span>Ask for the current price list &amp; floor plans</span>
     </div>
   </div>
@@ -569,6 +572,9 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
       <div class="feat"><b>Reception</b><span>Lobby &amp; waiting area</span></div>
       <div class="feat"><b>Double-aspect units</b><span>Views on both sides</span></div>
       <div class="feat"><b>Ground + commercial</b><span>Shops &amp; offices below</span></div>
+      <div class="feat"><b>Garbage chute room</b><span>Waste handling on every floor</span></div>
+      <div class="feat"><b>Security room</b><span>Dedicated space on every floor</span></div>
+      <div class="feat"><b>2 common washrooms</b><span>For domestic staff on every floor</span></div>
     </div>
   </div>
 </section>
@@ -596,7 +602,6 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
       <ul class="trust-list">
         <li><span class="tick">✦</span>Ground-breaking performed by the Country Head, Bahria Town Pakistan</li>
         <li><span class="tick">✦</span>Titled commercial plot (250–253, Bahria Liberty Commercial) with possession certificate — documentation shown on request</li>
-        <li><span class="tick">✦</span>File merging with 0% loss, as per the official brochure</li>
         <li><span class="tick">✦</span>Construction documented stage-by-stage since day one — see the record above</li>
       </ul>
     </div>
@@ -641,7 +646,7 @@ footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
     <h2>Walk it yourself.</h2>
     <p class="urdu-line">جنہوں نے یہاں انویسٹ کیا، ان کا فیصلہ بہترین تھا — اگلا فیصلہ آپ کا ہے۔</p>
     <div class="contact-card reveal">
-      <div class="who">Noor el huda<small>Syed Real Estate Builders &amp; Developers · Bahria Town Karachi</small></div>
+      <div class="who">Muhammad Noor el Huda<span class="role">Partner</span><small>Syed Real Estate &amp; Developers</small></div>
       <a class="btn btn-solid" href="https://wa.me/923214455975">Message on WhatsApp</a>
       <a class="num" href="tel:+923214455975">+92 321 4455975</a>
     </div>
