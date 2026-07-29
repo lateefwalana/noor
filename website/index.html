@@ -471,9 +471,11 @@ h2{
 .book .wrap{position:relative;z-index:2}
 .book h2{max-width:15ch}
 .book .urdu-line{font-family:var(--urdu);color:var(--palm-deep);font-size:1.05rem;margin:14px 0 30px;line-height:2.2}
+.contact-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch;max-width:900px}
+.contact-cards .contact-card:first-child{grid-column:1 / -1;width:min(100%,441px);justify-self:center}
 
 .contact-card{
-  display:inline-flex;flex-direction:column;gap:12px;
+  display:flex;flex-direction:column;gap:12px;width:100%;
   background:#fff;border:1px solid var(--line);border-radius:8px;
   padding:28px 32px;box-shadow:0 24px 50px -24px rgba(34,35,31,.4);
 }
@@ -483,6 +485,7 @@ h2{
 .contact-card a.btn{text-align:center}
 .contact-card .num{font-family:var(--mono);font-size:.95rem;color:var(--ink);text-align:center;text-decoration:none}
 .contact-card .num:hover{color:var(--palm)}
+@media(max-width:700px){.contact-cards{grid-template-columns:1fr;max-width:520px}.contact-cards .contact-card:first-child{grid-column:auto;width:100%}}
 
 /* ---------- footer ---------- */
 footer{border-top:1px solid var(--line);padding:44px 0 60px;color:var(--concrete)}
@@ -493,7 +496,13 @@ footer .fine{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;line-h
 footer .fine + .fine{margin-top:14px}
 
 /* ---------- CTA & Legal modal buttons ---------- */
-.verify-btn{margin-top:18px;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.verify-btn{
+  margin-top:18px;display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+  background:var(--palm);color:#fff;border:1px solid var(--palm);
+  font-weight:500;box-shadow:0 12px 28px -16px rgba(16,74,59,.7);
+}
+.verify-btn:hover{background:var(--palm-deep);color:#fff;border-color:var(--palm-deep);transform:translateY(-1px)}
+.verify-btn:focus-visible{outline:3px solid rgba(231,173,85,.55);outline-offset:3px}
 
 /* ---------- responsive updates ---------- */
 @media (max-width: 900px){
@@ -687,7 +696,7 @@ footer .fine + .fine{margin-top:14px}
       <li><span class="tick">[✓]</span><div><b>Grey structure — 100% complete</b><small>All fifteen storeys topped out</small></div></li>
       <li><span class="tick">[✓]</span><div><b>Premium roof work — complete</b></div></li>
       <li><span class="tick">[✓]</span><div><b>Electrical wiring — complete</b><small>Conduit &amp; wiring closed in walls</small></div></li>
-      <li><span class="tick">[✓]</span><div><b>Staircase &amp; floor tiling — done</b><small>Bathroom tiling in progress across floors</small></div></li>
+      <li><span class="tick">[✓]</span><div><b>Floor, staircase, bathroom &amp; kitchen tiling — complete</b><small>Tiling completed across all areas</small></div></li>
       <li><span class="tick">[✓]</span><div><b>Security grills — installed</b></div></li>
       <li><span class="tick">[✓]</span><div><b>1 MW PMT — installed</b><small>Dedicated power transformer for the building</small></div></li>
       <li><span class="tick">[▸]</span><div><b>Finishing — in progress</b><small>Handover planned within one year, Insha’Allah</small></div></li>
@@ -912,10 +921,22 @@ footer .fine + .fine{margin-top:14px}
     <p class="eyebrow">Next step</p>
     <h2>Walk it yourself.</h2>
     <p class="urdu-line">جنہوں نے یہاں انویسٹ کیا، ان کا فیصلہ بہترین تھا — اگلا فیصلہ آپ کا ہے۔</p>
-    <div class="contact-card reveal">
-      <div class="who">Muhammad Noor el Huda<span class="role">Partner</span><small>Syed Real Estate &amp; Developers</small></div>
-      <a class="btn btn-solid" href="https://wa.me/923214455975">Message on WhatsApp</a>
-      <a class="num" href="tel:+923214455975">+92 321 4455975</a>
+    <div class="contact-cards">
+      <div class="contact-card reveal">
+        <div class="who">Syed Rizwan<span class="role">Chairman</span><small>Syed Real Estate &amp; Developers</small></div>
+        <a class="btn btn-solid" href="https://wa.me/923008208300" aria-label="Message Syed Rizwan on WhatsApp">Message on WhatsApp</a>
+        <a class="num" href="tel:+923008208300">+92 300 8208300</a>
+      </div>
+      <div class="contact-card reveal">
+        <div class="who">Syed Ferhan<span class="role">Partner</span><small>Syed Real Estate &amp; Developers</small></div>
+        <a class="btn btn-solid" href="https://wa.me/923002617100" aria-label="Message Syed Ferhan on WhatsApp">Message on WhatsApp</a>
+        <a class="num" href="tel:+923002617100">+92 300 2617100</a>
+      </div>
+      <div class="contact-card reveal">
+        <div class="who">Muhammad Noor el Huda<span class="role">Partner</span><small>Syed Real Estate &amp; Developers</small></div>
+        <a class="btn btn-solid" href="https://wa.me/923214455975" aria-label="Message Muhammad Noor el Huda on WhatsApp">Message on WhatsApp</a>
+        <a class="num" href="tel:+923214455975">+92 321 4455975</a>
+      </div>
     </div>
   </div>
 </section>
@@ -964,7 +985,7 @@ footer .fine + .fine{margin-top:14px}
       <b style="font-family:var(--display);display:block;margin-bottom:8px;font-size:1rem">Building &amp; Layout Highlights:</b>
       <ul style="list-style:none;font-size:.88rem;color:#4c4b44;line-height:1.8">
         <li>✦ Double aspect layout (front boulevard + back greens)</li>
-        <li>✦ Tiled staircases, corridors &amp; bathroom tiling</li>
+        <li>✦ Completed floor, staircase, bathroom &amp; kitchen tiling</li>
         <li>✦ Dedicated 1 MW PMT power &amp; standby generator</li>
         <li>✦ Security grills &amp; CCTV surveillance</li>
       </ul>
