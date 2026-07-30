@@ -139,7 +139,7 @@ h2{
 .facts .wrap{
   display:grid;grid-template-columns:repeat(4,1fr);
 }
-.fact{padding:26px 26px 26px 0;border-right:1px solid var(--line)}
+.fact{padding:26px;border-right:1px solid var(--line);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .fact:last-child{border-right:none}
 .fact b{font-family:var(--display);font-weight:800;font-size:1.6rem;display:block;line-height:1.15}
 .fact span{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--concrete)}
@@ -364,16 +364,37 @@ h2{
 
 /* ---------- distance matrix ---------- */
 .distance-matrix{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:36px;
 }
 .dist-card{
-  background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px;
-  display:flex;align-items:flex-start;gap:14px;transition:transform .2s,box-shadow .2s;
+  position:relative;isolation:isolate;overflow:hidden;min-height:158px;
+  background:linear-gradient(145deg,#fff 0%,#f7f8f4 100%);
+  border:1px solid rgba(16,61,49,.12);border-radius:14px;padding:20px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:16px;
+  box-shadow:0 8px 22px -18px rgba(34,35,31,.42);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,border-color .35s ease,background .35s ease;
 }
-.dist-card:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(34,35,31,.15)}
-.dist-icon{font-size:1.5rem;line-height:1}
-.dist-info b{font-family:var(--display);font-size:1.02rem;display:block;color:var(--ink)}
-.dist-info span{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--concrete);display:block;margin-top:3px}
+.dist-card::before{
+  content:"";position:absolute;z-index:-1;left:0;right:0;top:0;height:4px;
+  background:linear-gradient(90deg,var(--palm),var(--amber));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .42s cubic-bezier(.2,.8,.2,1);
+}
+.dist-icon{
+  width:46px;height:46px;border-radius:13px;display:grid;place-items:center;
+  background:rgba(16,61,49,.08);border:1px solid rgba(16,61,49,.1);
+  font-size:1.45rem;line-height:1;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),background .35s ease;
+}
+.dist-info b{font-family:var(--display);font-size:1.03rem;line-height:1.15;display:block;color:var(--ink);transition:color .3s ease}
+.dist-info span{font-family:var(--mono);font-size:.67rem;line-height:1.55;letter-spacing:.045em;color:var(--concrete);display:block;margin-top:7px}
+@media (hover:hover) and (pointer:fine){
+  .dist-card:hover{transform:translateY(-7px);border-color:rgba(16,61,49,.3);background:#fff;box-shadow:0 22px 42px -22px rgba(16,61,49,.42)}
+  .dist-card:hover::before{transform:scaleX(1)}
+  .dist-card:hover .dist-icon{transform:translateY(-2px) scale(1.08) rotate(-3deg);background:rgba(231,173,85,.15)}
+  .dist-card:hover .dist-info b{color:var(--palm)}
+}
+@media (prefers-reduced-motion:reduce){.dist-card,.dist-card::before,.dist-icon,.dist-info b{transition:none}.dist-card:hover{transform:none}}
 
 /* ---------- unit filter & spec modal ---------- */
 .unit-filter-bar{
@@ -509,7 +530,7 @@ footer .fine + .fine{margin-top:14px}
   .split,.log-grid,.calc-card{grid-template-columns:1fr;gap:30px}
   .distance-matrix{grid-template-columns:repeat(2,1fr)}
   .facts .wrap{grid-template-columns:repeat(2,1fr)}
-  .fact{padding:18px 16px 18px 0}
+  .fact{padding:18px 16px}
   .fact:nth-child(2){border-right:none}
   .feat-grid{grid-template-columns:repeat(2,1fr)}
   .feat,.feat:nth-last-child(-n+3){grid-column:auto}
@@ -532,6 +553,7 @@ footer .fine + .fine{margin-top:14px}
   .views blockquote{font-size:1.4rem}
   .facts .wrap{grid-template-columns:1fr 1fr}
   .distance-matrix{grid-template-columns:1fr}
+  .dist-card{min-height:0;flex-direction:row;align-items:center;padding:18px 20px}
   .gallery-head{display:block;margin-bottom:26px}
   .photo-grid{gap:10px}
   .photo-grid .cell:nth-child(n){grid-column:1/-1}
@@ -645,6 +667,13 @@ footer .fine + .fine{margin-top:14px}
         <div class="dist-info">
           <b>Grand Jamia Mosque</b>
           <span>5 mins drive · Iconic Landmark</span>
+        </div>
+      </div>
+      <div class="dist-card">
+        <div class="dist-icon">🌇</div>
+        <div class="dist-info">
+          <b>Truly West Open</b>
+          <span>Open western aspect · Unobstructed exposure</span>
         </div>
       </div>
     </div>
