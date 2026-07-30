@@ -3,4 +3,7 @@ source-media/
 private/
 channel/
 
+# Secrets
+.env
+
 .DS_Store
