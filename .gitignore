@@ -1,8 +1,6 @@
 # Private source material — never publish
-WhatsApp Chat - noorelhuda.zip
-WhatsApp Image *.jpeg
-WhatsApp Video *.mp4
-WhatsApp Audio *.opus
-bank-receipt.pdf
+source-media/
+private/
+channel/
 
 .DS_Store
