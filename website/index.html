@@ -95,7 +95,7 @@ h2{
 .hero{
   position:relative;padding:0;min-height:88vh;
   display:flex;align-items:flex-end;
-  background:url("images/hero-midway-board.jpg") center top/cover no-repeat;
+  background:url("images/elevation-front-aug26.jpg") center 38%/cover no-repeat;
 }
 .hero::after{
   content:"";position:absolute;inset:0;
@@ -128,6 +128,14 @@ h2{
   position:absolute;top:86px;right:24px;z-index:2;
   font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
   background:rgba(34,35,31,.7);color:#DDD9CF;padding:7px 13px;border-radius:4px;
+}
+.hero-wordmark{
+  position:absolute;top:10%;left:50%;transform:translateX(-50%);z-index:2;
+  background:var(--palm);color:#E7C97F;
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(.72rem,2.1vw,1.5rem);letter-spacing:.16em;text-transform:uppercase;
+  padding:clamp(7px,1.2vw,15px) clamp(14px,2.8vw,38px);
+  border:1px solid rgba(231,201,127,.5);border-radius:3px;white-space:nowrap;
 }
 .hero-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#fff}
 .hero-kicker::before{content:"";width:7px;height:7px;background:#e7ad55;border-radius:50%;box-shadow:0 0 0 5px rgba(231,173,85,.16)}
@@ -580,6 +588,7 @@ footer .fine + .fine{margin-top:14px}
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
   <span class="hero-stamp">Photographed on site — not a render</span>
+  <span class="hero-wordmark">Midway Residancy</span>
   <div class="hero-inner">
     <div class="wrap">
       <p class="hero-kicker">Structure complete · finishing underway</p>
@@ -932,7 +941,7 @@ footer .fine + .fine{margin-top:14px}
     </div>
     <p class="media-label">Explore the building</p>
     <div class="photo-grid reveal">
-      <figure class="cell"><img src="images/elevation-front-aug26.jpg" alt="Full front elevation of Midway Residency from the boulevard, August 2026" loading="lazy"><figcaption><span>Front elevation</span><span>Aug 2026</span></figcaption></figure>
+      <figure class="cell"><img src="images/hero-midway-board.jpg" alt="Midway Residancy name board mounted on the roof of the building" loading="lazy" style="object-position:center top"><figcaption><span>Roof signage</span><span>Jul 2026</span></figcaption></figure>
       <figure class="cell"><img src="images/bathroom.jpg" alt="Tiled bathroom" loading="lazy"><figcaption><span>Bathroom tiling</span></figcaption></figure>
       <figure class="cell"><img src="images/blockwork.jpg" alt="Blockwork facade detail" loading="lazy"><figcaption><span>Blockwork detail</span></figcaption></figure>
       <figure class="cell"><img src="images/office.jpg" alt="Office floor interior" loading="lazy"><figcaption><span>Office floor</span></figcaption></figure>
