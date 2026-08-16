@@ -701,11 +701,11 @@ footer .fine + .fine{margin-top:14px}
         <figcaption><span class="no">05</span><span class="t">Structure rises<small>Floor by floor, slab by slab</small></span></figcaption></figure>
       <figure class="cell"><img src="images/tl-topped.jpg" alt="Building topped out at fifteen storeys" loading="lazy">
         <figcaption><span class="no">06</span><span class="t">Topped out<small>All fifteen storeys standing</small></span></figcaption></figure>
-      <figure class="cell"><img src="images/tl-today.jpg" alt="Grey structure complete with Midway Residency banners" loading="lazy">
-        <figcaption><span class="no">07</span><span class="t">Today<small>Grey structure complete — finishing underway</small></span></figcaption></figure>
+      <figure class="cell"><img src="images/elevation-front-wide.jpg" alt="Midway Residency front elevation in August 2026, facade plastered and balcony grills fitted" loading="lazy">
+        <figcaption><span class="no">07</span><span class="t">Today<small>Facade plastered, balcony grills in — finishing underway</small></span></figcaption></figure>
     </div>
     <p class="journey-note">Chronology as documented in the developer's own site photography
-    and walkthrough videos, shared July 2026.</p>
+    and walkthrough videos — latest elevations photographed August 2026.</p>
   </div>
 </section>
 
@@ -917,7 +917,7 @@ footer .fine + .fine{margin-top:14px}
   <div class="wrap">
     <div class="gallery-head">
       <div><p class="eyebrow">From the camera roll</p><h2>See it exactly as it stands.</h2></div>
-      <p class="lede">Restored walkthroughs and honest stills from the site — July 2026.</p>
+      <p class="lede">Restored walkthroughs from July 2026, plus fresh front and rear elevations shot on site in August 2026.</p>
     </div>
     <p class="media-label">Watch the walkthroughs</p>
     <div class="video-grid reveal">
@@ -932,13 +932,13 @@ footer .fine + .fine{margin-top:14px}
     </div>
     <p class="media-label">Explore the building</p>
     <div class="photo-grid reveal">
-      <figure class="cell"><img src="images/hero-facade.jpg" alt="Facade with balconies, grey structure" loading="lazy"><figcaption><span>Balcony facade</span></figcaption></figure>
+      <figure class="cell"><img src="images/elevation-front-aug26.jpg" alt="Full front elevation of Midway Residency from the boulevard, August 2026" loading="lazy"><figcaption><span>Front elevation</span><span>Aug 2026</span></figcaption></figure>
       <figure class="cell"><img src="images/bathroom.jpg" alt="Tiled bathroom" loading="lazy"><figcaption><span>Bathroom tiling</span></figcaption></figure>
       <figure class="cell"><img src="images/blockwork.jpg" alt="Blockwork facade detail" loading="lazy"><figcaption><span>Blockwork detail</span></figcaption></figure>
       <figure class="cell"><img src="images/office.jpg" alt="Office floor interior" loading="lazy"><figcaption><span>Office floor</span></figcaption></figure>
       <figure class="cell"><img src="images/terrace.jpg" alt="Tiled balcony terrace" loading="lazy"><figcaption><span>Terrace</span></figcaption></figure>
-      <figure class="cell"><img src="images/skyline.jpg" alt="Bahria Town skyline from the tower" loading="lazy"><figcaption><span>Back view</span></figcaption></figure>
-      <figure class="cell"><img src="images/elevation.jpg" alt="Front elevation with commercial floors" loading="lazy"><figcaption><span>Front elevation</span></figcaption></figure>
+      <figure class="cell"><img src="images/elevation-rear-aug26.jpg" alt="Rear elevation of Midway Residency showing tiered balconies over the Bahria Town greens, August 2026" loading="lazy"><figcaption><span>Rear elevation</span><span>Aug 2026</span></figcaption></figure>
+      <figure class="cell"><img src="images/elevation-front-angle.jpg" alt="Corner view of the Midway Residency front elevation from the boulevard, August 2026" loading="lazy"><figcaption><span>Front corner view</span><span>Aug 2026</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -1088,7 +1088,9 @@ function showLightboxImage(index) {
   const targetImg = galleryImages[currentImageIndex];
   lightboxImage.src = targetImg.src;
   lightboxImage.alt = targetImg.alt;
-  lightboxCaption.textContent = targetImg.nextElementSibling ? targetImg.nextElementSibling.textContent : targetImg.alt;
+  const cap = targetImg.nextElementSibling;
+  const capParts = cap ? Array.from(cap.children).map(s => s.textContent.trim()).filter(Boolean) : [];
+  lightboxCaption.textContent = capParts.length ? capParts.join(' · ') : (cap ? cap.textContent.trim() : targetImg.alt);
   lightboxCounter.textContent = `Photo ${currentImageIndex + 1} of ${galleryImages.length}`;
 }
 
